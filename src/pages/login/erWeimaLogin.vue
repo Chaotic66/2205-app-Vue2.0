@@ -2,7 +2,9 @@
     <div class="erWeima" >
         <h1 class="verCode">微信扫码登入</h1>
         <img class="ewmImg" :src=imgSrc alt="">
-        <p class="msk"></p>
+        <p class="msk" v-if=flag>
+            <img src="../../assets/img/123.png" alt="">
+        </p>
         <p class="ewmTip">{{tips}}</p>
     </div>
 
@@ -18,7 +20,7 @@
             return{
                 imgSrc:imgOut,
                 tips:'请使用手机微信扫码，加入战场!',
-                
+                flag:false
             }
         },
         methods:{
@@ -29,6 +31,9 @@
         },
         mounted(){
             console.log(this.flag);
+            setTimeout(()=>{
+                this.flag = true
+            },3000)
         }
     }
 
@@ -86,6 +91,15 @@
                 position: absolute;
                 bottom:185px;
                 background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                img{
+                    
+                    height: 100px;
+                    width: 100px;
+                }
             }
             ////提示
             .ewmTip{
