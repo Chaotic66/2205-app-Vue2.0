@@ -5,8 +5,8 @@
             <el-form-item label="手机号" prop="mobileNum">
                 <el-input type="text" v-model="ruleForm.mobileNum" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="验证码" prop="captcha">
-                <el-input type="text" v-model.number="ruleForm.captcha"></el-input>
+            <el-form-item label="验证码" >
+                <el-input type="text" ></el-input>
             </el-form-item>
             <el-form-item class="getCode"  >
                 <span>获取验证码</span>

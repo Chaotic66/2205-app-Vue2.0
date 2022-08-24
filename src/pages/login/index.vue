@@ -24,15 +24,10 @@
 </template>
 
 <script>
-
-
-    
     import commonLogin from '@/pages/login/commonLogin'
     import erWeimaLogin from '@/pages/login/erWeimaLogin'
     import mobileLogin from '@/pages/login/mobileLogin'
     import { mapMutations } from 'vuex'
-
-
 
   export default {
     components:{
@@ -47,26 +42,11 @@
         arr:['commonLogin','erWeimaLogin','mobileLogin'],
         sel:'commonLogin',
         falg2:true
-
-
       };
     },
     methods: {
         ...mapMutations('erWeimaLogin',['GET_FLAG']),
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-            
-          }
-        });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      },
+      
       changeCommon(){
         ////显示登录窗口
         this.flag = 1

@@ -48,17 +48,21 @@
       };
     ////验证 验证码
     var vvalidateCaptcha = (rule, value, callback) => {
+        if(value){
+            callback()
+        }else{
+            callback('不会输？')
+        }
 
-
-      };
+    };
     export default {
         props:['mobile'],
         data() {
             return {
                 ruleForm: {
-                username: '',
-                password: '',
-                captcha: '',
+                    username: '',
+                    password: '',
+                    captcha: '',
                 },
                 rules: {
                     username: [
@@ -78,6 +82,20 @@
             changeMobile(){
                 ////切换短信登录
                 this.$emit('custom','mobileLogin')
+            },
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    alert('submit!');
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                    
+                }
+                });
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
             },
         },
        
