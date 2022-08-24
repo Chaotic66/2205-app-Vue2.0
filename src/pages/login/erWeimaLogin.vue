@@ -20,19 +20,20 @@
             return{
                 imgSrc:imgOut,
                 tips:'请使用手机微信扫码，加入战场!',
-                flag:false
+                flag2:false
             }
         },
         methods:{
             
         },
         computed:{
+            ////拿到点击后传过来发起请求的开关
             ...mapState('erWeimaLogin',['flag'])
         },
         mounted(){
             console.log(this.flag);
             setTimeout(()=>{
-                this.flag = true
+                this.flag2 = true
             },3000)
         }
     }
