@@ -2,6 +2,7 @@
     <div class="erWeima" >
         <h1 class="verCode">微信扫码登入</h1>
         <img class="ewmImg" :src=imgSrc alt="">
+        <p class="msk"></p>
         <p class="ewmTip">{{tips}}</p>
     </div>
 
@@ -11,11 +12,11 @@
 
 <script>
     import { mapState } from 'vuex'
-    
+    import imgOut from '@/assets/img/wechatimg.png'
     export default {
         data(){
             return{
-                imgSrc:'//qr.m.jd.com/show?appid=133&size=147&t=1661313164352',
+                imgSrc:imgOut,
                 tips:'请使用手机微信扫码，加入战场!',
                 
             }
@@ -77,6 +78,14 @@
             ////二维码图片
             .ewmImg{
                 width: 150px;
+                height: 150px;
+            }
+            .msk{
+                height: 150px;
+                width: 150px;
+                position: absolute;
+                bottom:185px;
+                background-color: rgba(0, 0, 0, 0.5);
             }
             ////提示
             .ewmTip{

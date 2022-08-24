@@ -1,16 +1,25 @@
 <template>
     <div class="contain">
         <div class="bcg">
-            <video  autoplay loop >
-                <source src="../../assets/vedio/1900x900-2.mp4">
+            <video  autoplay loop muted>
+                <source src="../../assets/vedio/阿狸翻跳.mp4">
             </video>
         </div>
         <div class="login" >
             <h1 class="title">3秒注册,立即加入战场!</h1>   
             <!-- //! 二维码 -->
-            <i class="iconfont icon-erweima" @click='changeEwm' v-if='flag===1'></i>     
-            <i class="iconfont icon-diannao" @click='changeCommon' v-else-if='flag===2'></i> 
-            <i class="iconfont icon-diannao" @click='changeCommon' v-else-if='flag===3'></i>     
+            <!-- <i class="iconfont icon-erweima" @click='changeEwm' v-if='flag===1'></i>     -->
+            <svg class="icon icon-erweima" aria-hidden="true" @click='changeEwm' v-if='flag===1'>
+                <use xlink:href="#icon-erweimajiaobiao"></use>
+            </svg> 
+            <svg class="icon icon-diannao" aria-hidden="true" @click='changeCommon' v-else-if='flag===2'>
+                <use xlink:href="#icon-diannaojiaobiao"></use>
+            </svg> 
+            <svg class="icon icon-diannao" aria-hidden="true" @click='changeCommon' v-else-if='flag===3'>
+                <use xlink:href="#icon-diannaojiaobiao"></use>
+            </svg> 
+            <!-- <i class="iconfont icon-diannao" @click='changeCommon' v-else-if='flag===2'></i>  -->
+            <!-- <i class="iconfont icon-diannao" @click='changeCommon' v-else-if='flag===3'></i>  -->
             <!-- //! 登录-->
             <div class="tab" :is='sel'  @custom='changeWindow'></div>
             
@@ -139,8 +148,8 @@
         right: 0;
         bottom: 0;
         video{
-            height: 100%;
-            // width: 100%;
+            // height: 100%;
+            width: 100%;
         }
     }
     
