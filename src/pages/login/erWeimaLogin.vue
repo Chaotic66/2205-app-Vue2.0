@@ -66,6 +66,7 @@
             }
         },
         computed:{
+            ////拿到点击后传过来发起请求的开关
             ...mapState('erWeimaLogin',['flag'])
         },
         mounted(){
