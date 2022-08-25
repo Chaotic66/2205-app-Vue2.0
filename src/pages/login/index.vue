@@ -2,7 +2,7 @@
     <div class="contain">
         <div class="bcg">
             <video  autoplay loop muted>
-                <source src="../../assets/vedio/阿狸翻跳.mp4">
+                <source src="../../assets/vedio/1900x900-2.mp4">
             </video>
         </div>
         <div class="login" >
@@ -148,8 +148,8 @@
         right: 0;
         bottom: 0;
         video{
-            // height: 100%;
-            width: 100%;
+            height: 100%;
+            // width: 100%;
         }
     }
     
