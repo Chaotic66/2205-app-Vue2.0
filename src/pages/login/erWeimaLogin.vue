@@ -22,6 +22,7 @@
 <script>
     import { mapState } from 'vuex'
     import imgOut from '@/assets/img/wechatimg.png'
+
     import * as api from '@/api/users'
     import socketIo from 'socket.io-client'
     import qrcode from 'qrcode'
@@ -62,7 +63,7 @@
                 this.flag2 = false
                 this.scanFlag = false,
                 this.invalidFlag = false
-                console.log(newSid);
+                // console.log(newSid);
             }
         },
         computed:{
@@ -98,10 +99,14 @@
                         api.loginWechat(wechatCode)
                         .then(res=>{
                             console.log(res);
+                            //!远程校验通过，存数据
                             storage.set('token',res.data.token)
                             storage.set('userInfo',res.data.userInfo)
                             storage.set('permission',res.data.permission)
+                            //!远程校验通过，跳转
+                            this.$router.push('/home')
                         })
+
                     }
                 })
 

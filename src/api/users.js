@@ -29,3 +29,14 @@ export let loginWechat = (wechatCode) => http.get('/users/wechatLogin',{
         wechatCode
     }
 })
+
+
+////获取手机验证码
+export let getphoneCode = (phoneNumber) => http.post('/sms/send',{
+        phoneNumber  
+})
+
+////手机验证码登录 
+export let codeLogin = (code) => http.post('/users/login?type=sms',{
+    code  
+})

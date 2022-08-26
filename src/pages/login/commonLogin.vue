@@ -11,7 +11,7 @@
             </el-form-item>
             <!-- //!  验证码-->
             <el-form-item label="验证码" prop="captcha">
-                <el-input type="text" v-model.number="ruleForm.captcha"></el-input>
+                <el-input type="text" v-model="ruleForm.captcha"></el-input>
                 <i  alt="" class="imgYz" v-html=captchaImg @click=getCapchaM></i>    
             </el-form-item>
             <!-- //!  提交-->
@@ -34,7 +34,7 @@
     var validateUsername = (rule, value, callback) => {
         
         let reg = /^[A-Za-z0-9]{3,15}$/;
-        if(reg.test(value)){
+        if(value){
             callback()
         }else{
             callback('不会好好写名字？')

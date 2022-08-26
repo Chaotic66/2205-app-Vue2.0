@@ -6,13 +6,13 @@
                 <el-input type="text" v-model="ruleForm.mobileNum" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="验证码" >
-                <el-input type="text" ></el-input>
+                <el-input type="text" v-model="code"></el-input>
             </el-form-item>
-            <el-form-item class="getCode"  >
-                <span>获取验证码</span>
+            <el-form-item class="getCode" >
+                <span v-html='codeText' @click=getCode  >获取验证码</span>
             </el-form-item>
             <el-form-item>
-                <el-button  type="primary" @click="submitForm('ruleForm')">提交</el-button>
+                <el-button  type="primary" @click=codLog>提交</el-button>
             </el-form-item>           
         </el-form>
     </div>
@@ -21,6 +21,8 @@
 
 
 <script>
+    import * as api from '@/api/users'
+    import storage from '@/utils/storage'
     ////验证 手机号
     var vvalidateMobileNum = (rule, value, callback) => {
         let reg = /^(?:(?:\+|00)86)?1[3-9]\d{9}$/
@@ -30,7 +32,7 @@
             callback('不会好好写手机号？')
         }
       };
-
+    
     export default {
         data(){
             return{
@@ -43,8 +45,45 @@
                     ]
 
                 },
+                codeText:'获取验证码',
+                codeFlag:true,
+                code:''
             }
         },
+        methods:{
+           async getCode(){
+                ////处理防抖
+                if(this.codeFlag){
+                    this.codeFlag = false
+                    let timeout = 60
+                    this.codeText = `${timeout}秒后重新发送`
+                    let res = await api.getphoneCode(this.ruleForm.mobileNum)
+                    
+                    ////倒计时
+                    let interval= setInterval(()=>{
+                        timeout--
+                        this.codeText = `${timeout}秒后重新发送`
+                        ////关闭计时器并打开按钮
+                        if(timeout<1){
+                            clearInterval(interval)
+                            this.codeText = '获取验证码'
+                            this.codeFlag = true
+                        }
+                      
+                    },1000)
+                }
+            },
+           async codLog(){
+                let res = await api.codeLogin(this.code)
+                console.log(res);
+                if(res.data.state){
+                    this.$router.push('/home')
+                    storage.set('token',res.data.token)
+                    storage.set('userInfo',res.data.userInfo)
+                    storage.set('permission',res.data.permission)
+                }
+            }
+        }
        
     }
 
@@ -101,6 +140,7 @@
                 span{
                     display: block;
                     cursor: pointer;
+                    user-select: none;
                 }
             }   
         }

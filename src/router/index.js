@@ -9,7 +9,10 @@ const routes = [
     path: "/",
     component: () =>   import(/* webpackChunkName: "log" */ "@/pages/login"),
   },
-
+  {
+    path: "/home",
+    component: () =>   import(/* webpackChunkName: "home" */ "@/pages/home"),
+  },
 ];
 
 const router = new VueRouter({
