@@ -73,10 +73,12 @@
                     },1000)
                 }
             },
+            ////手机验证码登录
            async codLog(){
                 let res = await api.codeLogin(this.code)
                 console.log(res);
                 if(res.data.state){
+                    ////页面跳转
                     this.$router.push('/home')
                     storage.set('token',res.data.token)
                     storage.set('userInfo',res.data.userInfo)
