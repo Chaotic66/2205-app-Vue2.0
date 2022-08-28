@@ -58,7 +58,7 @@
                
             },
             reGetewm(){
-                let newSid = storage.get('qf-sid')
+                let newSid = storage.get('QF-sid')
                 this.getEwmCode(newSid)
                 this.flag2 = false
                 this.scanFlag = false,
@@ -76,7 +76,7 @@
                 //!  监听连接事件
                 io.on('connectSuccess',({state,sid})=>{
                     if(state){
-                        storage.set('qf-sid',sid)
+                        storage.set('QF-sid',sid)
                         ////调用生成二维码方法
                         this.getEwmCode(sid)
                     }
@@ -104,7 +104,7 @@
                             storage.set('userInfo',res.data.userInfo)
                             storage.set('permission',res.data.permission)
                             //!远程校验通过，跳转
-                            this.$router.push('/home')
+                            this.$router.push('/welcome')
                         })
 
                     }

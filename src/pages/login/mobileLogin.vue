@@ -57,8 +57,21 @@
                     this.codeFlag = false
                     let timeout = 60
                     this.codeText = `${timeout}秒后重新发送`
+                    ////获取手机验证码
                     let res = await api.getphoneCode(this.ruleForm.mobileNum)
-                    
+                    if(res.data.state){
+                        this.$message({
+                            showClose: true,
+                            message: '恭喜你,短信发送成功',
+                            type: 'success'
+                        });
+                    }else{
+                        this.$message({
+                            showClose: true,
+                            message: res.data.msg,
+                            type: 'error'
+                        });
+                    }
                     ////倒计时
                     let interval= setInterval(()=>{
                         timeout--
@@ -79,7 +92,7 @@
                 console.log(res);
                 if(res.data.state){
                     ////页面跳转
-                    this.$router.push('/home')
+                    this.$router.push('/welcome')
                     storage.set('token',res.data.token)
                     storage.set('userInfo',res.data.userInfo)
                     storage.set('permission',res.data.permission)

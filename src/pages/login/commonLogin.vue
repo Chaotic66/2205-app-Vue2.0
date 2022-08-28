@@ -10,9 +10,9 @@
                 <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
             </el-form-item>
             <!-- //!  验证码-->
-            <el-form-item label="验证码" prop="captcha">
-                <el-input type="text" v-model="ruleForm.captcha"></el-input>
-                <i  alt="" class="imgYz" v-html=captchaImg @click=getCapchaM></i>    
+            <el-form-item label="验证码" prop="captcha" v-loading=loadingFlag >
+                <el-input type="text" v-model="ruleForm.captcha" @keydown.native.enter="submitForm('ruleForm')"></el-input>
+                <i  alt="" class="imgYz" v-html=captchaImg @click=getCapchaM ></i>    
             </el-form-item>
             <!-- //!  提交-->
             <el-form-item>
@@ -85,7 +85,9 @@
                     ],
                 },
                 imgSrc2:imgSrc,
-                captchaImg:''
+                captchaImg:'',
+                loadingFlag:false,
+
 
             };
         },
@@ -98,16 +100,19 @@
                     .then(res=>{                        
                         if(res.data.state){
                             //!若本地校验通过，则发起远程校验请求
-                            console.log('启动！');
+                            // console.log('启动！');
                             api.normalLogin(this.ruleForm.username,this.ruleForm.password)
                             .then(res=>{
                                 
-                                //!远程校验通过，存数据
-                                storage.set('token',res.data.token)
-                                storage.set('userInfo',res.data.userInfo)
-                                storage.set('permission',res.data.permission)
-                                //!远程校验通过，跳转
-                                this.$router.push('/home')
+                                if(res.data.state){
+                                    //!远程校验通过，存数据
+                                    storage.set('token',res.data.token)
+                                    storage.set('userInfo',res.data.userInfo)
+                                    storage.set('permission',res.data.permission)
+                                    //!远程校验通过，跳转
+                                    this.$router.push('/welcome')
+                                }
+                                
 
                             })
                         }else{
@@ -134,9 +139,16 @@
             },
             ////获取验证码
             getCapchaM(){
+                this.loadingFlag = true
                 api.getCapcha()
                 .then(res=>{
-                    this.captchaImg = res.data.img
+                    if(res.data.state){
+                        this.loadingFlag = false
+                        this.captchaImg = res.data.img
+                    }else{
+                        this.loadingFlag = true
+                    }
+                    
                     // console.log(res);
                     
                 })
@@ -195,9 +207,22 @@
         /deep/.imgYz svg{
             height: 40px;
             position: absolute;
-            right: 40px;
+            right: 45px;
             top: 1px;
+            
         }
+
+        /deep/.el-loading-mask{
+                width: 130px !important;
+                height: 40px !important;
+                left: 215px;
+                top: 1px;
+                /deep/.el-loading-spinner{
+                    width: 130px !important;
+                    height: 40px !important;
+                }
+                
+            }
     }
 
 
